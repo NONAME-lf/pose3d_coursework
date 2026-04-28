@@ -1,0 +1,11 @@
+venv/
+data/kimore/
+data/processed/
+data/pose2sim_demo/pose/
+data/pose2sim_demo/pose-associated/
+data/pose2sim_demo/pose-3d/
+data/pose2sim_demo/videos/
+data/pose2sim_demo/calibration/intrinsics/
+__pycache__/
+*.pyc
+.DS_Store
