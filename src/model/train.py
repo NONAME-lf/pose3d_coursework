@@ -19,9 +19,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from model import build_model
 
 
-# ============================================================
 # Dataset
-# ============================================================
 class KimoreDataset(Dataset):
     def __init__(self, body_parts, labels):
         """
@@ -56,9 +54,7 @@ def collate_fn(batch):
     return parts_batch, labels
 
 
-# ============================================================
 # Training function
-# ============================================================
 def train_one_epoch(model, loader, optimizer, criterion, device):
     model.train()
     total_loss = 0
@@ -99,9 +95,7 @@ def evaluate(model, loader, criterion, device):
     return avg_loss, np.array(all_preds), np.array(all_labels)
 
 
-# ============================================================
 # Main training loop with K-Fold cross-validation
-# ============================================================
 def train_exercise(exercise_name, data, n_epochs=100, n_folds=5, lr=0.001):
     """Train and evaluate model for one exercise using K-Fold CV."""
     
@@ -210,9 +204,7 @@ def train_exercise(exercise_name, data, n_epochs=100, n_folds=5, lr=0.001):
     }
 
 
-# ============================================================
 # Visualization
-# ============================================================
 def plot_results(results, save_dir='results/training'):
     os.makedirs(save_dir, exist_ok=True)
     
@@ -245,9 +237,7 @@ def plot_results(results, save_dir='results/training'):
     print(f"{'='*60}")
 
 
-# ============================================================
 # Main
-# ============================================================
 if __name__ == '__main__':
     print("Loading processed KIMORE data...")
     with open('data/processed/kimore_processed.pkl', 'rb') as f:

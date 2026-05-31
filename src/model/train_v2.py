@@ -1,8 +1,3 @@
-"""
-Training v2: Simpler model + better hyperparameters for small dataset.
-Uses a lighter architecture more suitable for ~75 samples.
-"""
-
 import pickle
 import numpy as np
 import torch
@@ -15,9 +10,9 @@ import matplotlib.pyplot as plt
 import os
 
 
-# ============================================================
-# Simpler model for small dataset
-# ============================================================
+
+# Simpler model for small dataset:
+# Simpler model + better hyperparameters for small dataset. Uses a lighter architecture more suitable for ~75 samples.
 class SimpleExerciseModel(nn.Module):
     """
     Lighter model: 1D Conv per body part -> concat -> FC layers.
@@ -61,9 +56,7 @@ class SimpleExerciseModel(nn.Module):
         return self.regressor(combined).squeeze(-1)
 
 
-# ============================================================
 # Also try a baseline: flatten + simple MLP on joint angles
-# ============================================================
 class StatisticalFeatureModel(nn.Module):
     """
     Extract statistical features (mean, std, min, max, range) 
@@ -100,9 +93,7 @@ class StatisticalFeatureModel(nn.Module):
         return self.mlp(features).squeeze(-1)
 
 
-# ============================================================
 # Dataset
-# ============================================================
 class KimoreDataset(Dataset):
     def __init__(self, body_parts, full_skeleton, labels):
         self.body_parts = {k: torch.FloatTensor(v) for k, v in body_parts.items()}
@@ -132,9 +123,7 @@ def collate_fn(batch):
     return parts_batch, torch.stack(skeletons), torch.stack(labels)
 
 
-# ============================================================
 # Training
-# ============================================================
 def train_model(model_class, model_kwargs, exercise_data, exercise_name,
                 n_epochs=200, n_folds=5, lr=0.001, use_body_parts=True):
     
@@ -243,9 +232,7 @@ def train_model(model_class, model_kwargs, exercise_data, exercise_name,
     }
 
 
-# ============================================================
 # Visualization
-# ============================================================
 def plot_all_results(results_list, save_dir='results/training'):
     os.makedirs(save_dir, exist_ok=True)
     
@@ -273,9 +260,6 @@ def plot_all_results(results_list, save_dir='results/training'):
     print(f"\nPlot saved to {save_dir}/results_v2.png")
 
 
-# ============================================================
-# Main
-# ============================================================
 if __name__ == '__main__':
     print("Loading processed KIMORE data...")
     with open('data/processed/kimore_processed.pkl', 'rb') as f:

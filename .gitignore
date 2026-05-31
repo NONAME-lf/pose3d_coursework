@@ -9,3 +9,4 @@ data/pose2sim_demo/calibration/intrinsics/
 __pycache__/
 *.pyc
 .DS_Store
+src/geometric/*.md

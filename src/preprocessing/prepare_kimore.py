@@ -8,9 +8,7 @@ import pickle
 import numpy as np
 import os
 
-# ============================================================
 # 1. Load data
-# ============================================================
 print("Loading KIMORE dataset...")
 with open('data/kimore/kimore_exercise_dataset.pkl', 'rb') as f:
     data = pickle.load(f)
@@ -34,9 +32,7 @@ BODY_PARTS = {
     'right_leg': ['hipright', 'kneeright', 'ankleright', 'footright'],
 }
 
-# ============================================================
 # 2. Extract 3D positions from raw data
-# ============================================================
 def extract_positions(joint_data):
     """
     Each joint has shape (n_frames, 7).
@@ -70,9 +66,8 @@ def pad_or_truncate(sequence, target_length):
         return np.vstack([sequence, padding])
 
 
-# ============================================================
+
 # 3. Process all exercises
-# ============================================================
 TARGET_LENGTH = 300  # frames - pad/truncate all sequences to this
 
 processed_data = {}
@@ -164,9 +159,7 @@ for ex_name in ['ex1', 'ex2', 'ex3', 'ex4', 'ex5']:
     for part_name, arr in body_parts_arrays.items():
         print(f"  {part_name} shape: {arr.shape}")
 
-# ============================================================
 # 4. Save processed data
-# ============================================================
 output_path = 'data/processed/kimore_processed.pkl'
 os.makedirs('data/processed', exist_ok=True)
 
